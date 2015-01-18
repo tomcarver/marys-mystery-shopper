@@ -28,16 +28,27 @@ finishing prototype to show Chris
 11:18 t0 …?
 
 
+To say to Chris
+- [ ] we won't be able to do a questionnaire at the end - outside scope
+- [ ] is there any chance he can shorten up the words at all???
+- [ ] can he reduce the number of options at all?
+- [ ] talk him through the app, and talk him through the 'search' option
+- [ ] tell him how far through the process we are (halfway basically)
+
 
 Still to do?
  - [x] turn off all caps
  - [x] bigger free text input box
  - [x] links to home and sastrugi now work
  - [ ] check your answers screen? or Thanks for your submission?
- - [ ] search results
+ - [x] search results page
+ - [ ] link to search results
  - [ ] enter key still needs to submit stuff
+ - [ ] radio buttons should ALL by un-selected upon load.
+ - [ ] simplify the html to the bare minimum, so I can add radio buttons in bulk
  
  - [ ] favicon
- - [ ] turn off the timeout functionality
- - [ ] turn off the form validation?
+
+ - [ ] turn off the timeout functionality (Tom)
+ - [ ] turn off the form validation? (Tom)
  - [ ] re-iterate the colours / fonts perhaps?
