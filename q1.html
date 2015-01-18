@@ -126,68 +126,25 @@ if(typeof _csrf_=="undefined"){_csrf_={}}if(typeof _tsbp_=="undefined"){_tsbp_={
 
     <fieldset class="validate " data-validation-name="country" data-validation-type="fieldset" data-validation-rules="atLeastOneNonEmpty" data-validation-children="england scotland wales northernIreland britishIslands abroad">
 
-        <label for="sore_at_IV_line" class="selectable selected">
-            <input type="radio" id="sore_at_IV_line" name="country.residence" value="sore at IV line" class="radio  validate" checked="checked" data-validation-name="england" data-validation-type="field" data-validation-rules="nonEmpty">
-            You developed a sore arm or inflammation because of a drip (intravenous line)
+        <label for="medical_complications" class="selectable selected">
+            <input type="radio" id="medical_complications" name="country.residence" value="medical complications" class="radio  validate" checked="checked" data-validation-name="england" data-validation-type="field" data-validation-rules="nonEmpty">
+            Medical complications
         </label>
-        <label for="drug_reaction" class="selectable">
-            <input type="radio" id="drug_reaction" name="country.residence" value="Drug reaction" class="radio  validate" data-validation-name="scotland" data-validation-type="field" data-validation-rules="nonEmpty">
-            You experienced a reaction to a drug
+        <label for="healthcare_process_problems" class="selectable">
+            <input type="radio" id="healthcare_process_problems" name="country.residence" value="Healthcare process problems" class="radio  validate" data-validation-name="scotland" data-validation-type="field" data-validation-rules="nonEmpty">
+            Healthcare process problems
         </label>
-        <label for="country_residence_Wales" class="selectable">
-            <input type="radio" id="country_residence_Wales" name="country.residence" value="Wales" class="radio  validate" data-validation-name="wales" data-validation-type="field" data-validation-rules="nonEmpty">
-            Wales
+        <label for="medication_related_problems" class="selectable">
+            <input type="radio" id="medication_related_problems" name="country.residence" value="Medication-related problems" class="radio  validate" data-validation-name="wales" data-validation-type="field" data-validation-rules="nonEmpty">
+            Medication-related problems
         </label>
-        <label for="country_residence_Northern_Ireland" class="selectable">
-            <input type="radio" id="country_residence_Northern_Ireland" name="country.residence" value="Northern Ireland" class="radio  validate" data-validation-name="northernIreland" data-validation-type="field" data-validation-rules="nonEmpty">
-            Northern Ireland
-        </label>
-        <p>or</p>
-        <label for="infection" class="selectable">
-            <input type="radio" id="infection" name="country.residence" value="Infection" class="radio validate" data-validation-name="infection" data-validation-type="field" data-validation-rules="nonEmpty">
-            You caught an infection in the hospital
+        <label for="interpersonal_problems" class="selectable">
+            <input type="radio" id="interpersonal_problems" name="country.residence" value="Interpersonal problems" class="radio  validate" data-validation-name="northernIreland" data-validation-type="field" data-validation-rules="nonEmpty">
+            Interpersonal problems
         </label>
     </fieldset>
 
-    <fieldset class="">
-        <div class="optional-section sub-section validate" data-condition="infection">
-            <h2>What kind of infection did you catch?</h2>
-            <label for="pneumonia" class="selectable">
-                <input type="radio" id="pneumonia" name="country.origin" value="Pneumonia" class="radio  validate" data-validation-name="englandOrigin" data-validation-type="field" data-validation-rules="nonEmpty">
-                Pneumonia
-            </label>
-            <label for="c_diff_colitis" class="selectable">
-                <input type="radio" id="c_diff_colitis" name="country.origin" value="C.diff colitis" class="radio  validate" data-validation-name="scotlandOrigin" data-validation-type="field" data-validation-rules="nonEmpty">
-                C.diff colitis
-            </label>
-            <label for="sepsis_bacteraemia" class="selectable">
-                <input type="radio" id="sepsis_bacteraemia" name="country.origin" value="Sepsis / bacteraemia" class="radio  validate" data-validation-name="walesOrigin" data-validation-type="field" data-validation-rules="nonEmpty">
-                Sepsis / bacteraemia
-            </label>
-            <label for="uti" class="selectable">
-                <input type="radio" id="uti" name="country.origin" value="Urinary tract infection" class="radio  validate" data-validation-name="northernIreland" data-validation-type="field" data-validation-rules="nonEmpty">
-                Urinary tract infection
-            </label>
-            <label for="phlebitis" class="selectable">
-                <input type="radio" id="phlebitis" name="country.origin" value="Phlebitis" class="radio  validate" data-validation-name="phlebitis" data-validation-type="field" data-validation-rules="nonEmpty">
-                Phlebitis
-            </label>
-            <label for="wound_infection" class="selectable">
-                <input type="radio" id="wound_infection" name="country.origin" value="Wound infection" class="radio  validate" data-validation-name="woundInfection" data-validation-type="field" data-validation-rules="nonEmpty">
-                Wound infection
-            </label>
-            <label for="intra_abdominal_abscess" class="selectable">
-                <input type="radio" id="intra_abdominal_abscess" name="country.origin" value="Intra-abdominal abscess" class="radio  validate" data-validation-name="intraAbdominalAbscess" data-validation-type="field" data-validation-rules="nonEmpty">
-                Intra-abdominal abscess
-            </label>
-            <label for="cellulitis" class="selectable">
-                <input type="radio" id="cellulitis" name="country.origin" value="Cellulitis" class="radio  validate" data-validation-name="cellulitis" data-validation-type="field" data-validation-rules="nonEmpty">
-                Cellulitis
-            </label>
-        </div>
-    </fieldset>
-
-    <a href="free-text.html" type="submit" id="continue" class="u-color-white u-inline-block button next validation-submit" data-validation-sources="">Continue</a>
+    <a href="q2.html" type="submit" id="continue" class="u-color-white u-inline-block button next validation-submit" data-validation-sources="">Continue</a>
     <!-- <button type="submit" id="continue" class="button next validation-submit" data-validation-sources="country">
         Continue
     </button> -->
