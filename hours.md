@@ -23,6 +23,21 @@ Getting gh-pages working, and chatting to Tom
 
 
 ### Sun 19th Jan
-9:10 to …?
+9:10 to 10:48
 finishing prototype to show Chris
+11:18 t0 …?
 
+
+
+Still to do?
+ - [x] turn off all caps
+ - [x] bigger free text input box
+ - [x] links to home and sastrugi now work
+ - [ ] check your answers screen? or Thanks for your submission?
+ - [ ] search results
+ - [ ] enter key still needs to submit stuff
+ 
+ - [ ] favicon
+ - [ ] turn off the timeout functionality
+ - [ ] turn off the form validation?
+ - [ ] re-iterate the colours / fonts perhaps?
