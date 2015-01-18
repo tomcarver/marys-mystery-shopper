@@ -1,3 +1,15 @@
 #global-header-bar .header-bar {
 	background-color: #199179;
 }
+
+.u-inline-block {
+	display: inline-block;
+}
+
+a.u-color-white {
+	color: white;
+}
+
+.u-full-width {
+	width: 100%;
+}
