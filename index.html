@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- saved from url=(0063)https://www.registertovote.service.gov.uk/register-to-vote/name -->
-<html lang="en"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
+<html lang="en" ng-app="patientApp"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
 
     <title>
 Enter Patient ID number
@@ -61,6 +61,135 @@ Enter Patient ID number
 <link href="./gov-uk-files/print.css" media="print" rel="stylesheet" type="text/css">
 
 <link href="./marys-custom/marys.css" media="screen" rel="stylesheet" type="text/css">
+
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular-animate.js"></script>
+<script type="text/javascript">
+
+var questions = {
+    "Medical complications" : {
+        "You developed a sore arm or inflammation because of a drip (intravenous line)" : null,
+        "You caught an infection in the hospital" : {
+            "Pneumonia" : null,
+            "C.diff colitis" : null,
+            "Sepsis / bacteraemia" : null,
+            "Urinary tract infection" : null,
+            "Phlebitis" : null,
+            "Wound infection" : null,
+            "Intra-abdominal abscess" : null,
+            "Cellulitis" : null
+        },
+        "You experienced a reaction to a drug" : null,
+        "You bled a lot after an operation or after a tube or drain was inserted into you" : null,
+        "You developed a collection of blood (haematoma) or fluid (seroma) at the site of an operation or procedure" : null,
+        "Your wound opened up enexpectedly (wound dehiscence)" : null,
+        "You needed to be transferred to intensive care because of a complication that occurred in hospital" : null,
+        "You developed a pressure ulcer (skin wound) in hospital" : null,
+        "You had to be re-operated on urgently after your initial operation" : null,
+        "You had a fall in hospital" : null,
+        "You had a reaction to a blood transfusion" : null,
+        "You developed a DVT (deep vein thrombosis) or PE (pulmonary embolism)" : null,
+        "You developed a collapsed lung or pneumothorax after a procedure" : null,
+        "You required ongoing support with your breathing" : null,
+        "You had a heart attack (myocardial infarction) in hospital" : null,
+        "You had low blood pressure (hypotension)" : null,
+        "Your bowels did not work for a prolonged period (ileus)" : null,
+        "Your bowels become blocked (obstruction)" : null,
+        "You suffered an unintended injury at the time of the operation" : null,
+        "A keyhole or laparoscopic operation had to be converted to open" : null,
+        "You developed problems passing urine (oliguria/ failure/ incontinence / retention)" : null,
+        "You suffered a stroke (CVA)" : null,
+        "You developed worsened anxiety or depression" : null,
+        "Your anastomosis leaked after the operation" : null,
+        "You had problems with your stoma" : null
+    },
+    "Healthcare process problems" : {
+        "Your medical records were unavailable when needed" : null,
+        "You did not receive enough painkillers" : null,
+        "Doctors made a wrong diagnosis" : null,
+        "You were given food/drink you were not allowed on your diet? (e.g. if you were nil by mouth)" : null,
+        "Your fluids in your drip were not changed when they should have been" : null,
+        "A test was not done when it should have been" : null,
+        "A test was repeated needlessly, by mistake" : null,
+        "You were given a drug that was not intended for you" : null,
+        "You were confused with another patient during a test or a treatment" : null,
+        "A test was cancelled by mistake" : null,
+        "An error occurred in a test result" : null,
+        "A test, surgical intervention or therapy was performed on the wrong site of your body." : null,
+        "The worng implant or prosthesis was used" : null,
+        "Something was inappropriately left inside you (retained foreign body)" : null,
+        "You discovered that staff did not wash their hands or use alcohol gel before touching you." : null,
+        "Staff were unable to obtain a blood sample" : null,
+        "You experienced unexplained waits and delays. In what? For how long?" : null,
+        "Problems with environment and amenities. In what?" : null,
+        "You noticed Inadequate staffing - nurses/doctor/other" : null,
+        "You were not monitored or followed-up as planned" : null,
+        "A test or procedure was interrupted by Equipment malfunction" : null
+    },
+    "Medication-related problems" : {
+        "You experienced a reaction to a drug" : null,
+        "You were prescribed a drug you were allergic to" : null,
+        "You were prescribed an Inappropriate choice of drug eg due to contraindication" : null,
+        "You were given an infusion or drug that was not intended for you." : null,
+        "You were given an infusion or drug at the wrong time" : null,
+        "You were given an infusion or drug at the wrong dose" : null,
+        "An infusion or drug was omitted, by mistake." : null,
+        "There was a delay in giving you your medication" : null,
+        "Failure to order drug" : null
+    },
+    "Interpersonal problems" : {
+        "Your diagnosis was not explained to you." : null,
+        "You were not explained about what to expect from your treatment while in hospital" : null,
+        "The purpose of the medication was not explained to you" : null,
+        "The side effects of your medication were not explained to you" : null,
+        "Health care staff did not introduce themselves and explain who they were" : null,
+        "You were addressed informally without your agreement" : null,
+        "You were not explained how the ward works? (e.g. where the toilets are, what time meals are?)" : null,
+        "You were not given enough information about your care after discharge from hospital" : null,
+        "You were not treated with dignity and respect by the doctors and nurses" : null,
+        "You did not feel that you could ask questions to doctors and nurses if you wanted to" : null,
+        "Doctors or nurses did not respect confidentiality" : null,
+        "Doctors or nurses ignored information you gave them" : null,
+        "Your consent was not obtained before a test or an intervention" : null,
+        "You were pushed to undergo a test or a treatment against your wish" : null,
+        "You were handled or moved with roughness" : null,
+        "You felt physically abused" : null
+    },
+    "Other" : null
+};
+
+angular
+    .module('patientApp', ['ngAnimate'])
+    .controller('MainController', ['$scope', function($scope) {
+        $scope.visual_state = "notLoggedIn";
+        $scope.holder = {}; // bypass the child scope databinding problem
+
+        $scope.logIn = function() {
+            $scope.currentQuestionPath = [];
+            updateQuestionsForPath();
+        };
+
+        var updateQuestionsForPath = function() {
+
+            var questionsAtPath = questions;
+            for (var i = 0; i < $scope.currentQuestionPath.length; i++) {
+                var pathStep = $scope.currentQuestionPath[i];
+                if (questionsAtPath && questionsAtPath.hasOwnProperty(pathStep)) {
+                    questionsAtPath = questionsAtPath[pathStep];
+                }
+            }
+
+            $scope.currentQuestions = questionsAtPath;
+            $scope.holder.questionSelection = "";
+            $scope.visual_state = ($scope.currentQuestions) ? "chooseAQuestion" : "enterFreeText";
+        };
+
+        $scope.chooseQuestion = function() {
+            $scope.currentQuestionPath.push($scope.holder.questionSelection);
+            updateQuestionsForPath();
+        };
+    }]);
+</script>
   </head>
 
   <body class="js-enabled">
@@ -104,29 +233,79 @@ Enter Patient ID number
     </div>
     <!--end global-header-bar-->
 
-<main id="content" class="">
-    <form action="q1.html" method="GET" data-validation-name="" data-validation-type="" data-validation-rules="" class="validate" data-validation-members="">
+<main id="content" class="" ng-controller="MainController">
+  <form ng-switch on="visual_state">
 
-<header class="">
-    <p>Question 0</p>
-    <h1>What is the patient's study ID number?</h1>
-</header>
+    <div class="validate step" ng-switch-default>
+        <header class="question-one">
+            <h4>Log in</h4>
+            <h1>What is the patient's study ID number?</h1>
+        </header>
 
+        <label for="" class="visuallyhidden">
+            What is the patient's study ID number?
+        </label>
 
-    
+        <div class="">
+            <input type="text" id="NINO_NINO" name="NINO.NINO" value="" autocomplete="off" class="text  validate nino " data-validation-name="" data-validation-type="field" data-validation-rules="">
+        </div>
+        <p class="example">Example: ABC 123 P</p>
 
-    <label for="" class="visuallyhidden">
-        What is the patient's study ID number?
-    </label>
-
-    <div class="">
-        <input type="text" id="NINO_NINO" name="NINO.NINO" value="" autocomplete="off" class="text  validate nino " data-validation-name="" data-validation-type="field" data-validation-rules="">
+        <a id="continue" class="u-color-white u-inline-block button next" ng-click="logIn()">Continue</a>
     </div>
-    <p class="example">Example: ABC 123 P</p>
 
-    <button type="submit" id="continue" class="button next validation-submit" data-validation-sources="nino">Continue</button>
-</form>
+    <div ng-switch-when="chooseAQuestion">
+        <header class="question-one">
+            <h1>
+                {{currentQuestionPath[0] || "What would you like to report?"}}
+            </h1>
+            <h3 ng-if="currentQuestionPath.length > 1">
+                <span ng-repeat="q in currentQuestionPath" ng-if="!$first">
+                    {{q}}
+                    <span ng-if="!$last">&gt;</span>
+                </span>
+            </h3>
+        </header>
 
+        <fieldset class="validate" data-validation-rules="atLeastOneNonEmpty">
+            <label class="selectable" ng-repeat="(q, obj) in currentQuestions"
+                ng-class="{ 'selected': holder.questionSelection == q, 'selectable-focus': holder.questionSelection == q}">
+                <input type="radio" value="{{q}}" class="radio validate" data-validation-rules="nonEmpty" ng-model="holder.questionSelection">
+                {{q}}
+            </label>
+        </fieldset>
+
+        <a id="continue" class="u-color-white u-inline-block button next" ng-click="chooseQuestion()">Continue</a>
+    </div>
+
+    <div ng-switch-when="enterFreeText">
+        <header class="question-one">
+            <h4 ng-repeat="q in currentQuestionPath">
+                <span ng-if="$first">{{q}}</span>
+            </h4>
+            <h2>
+                <span ng-repeat="q in currentQuestionPath">
+                    <span ng-if="!$first">
+                        {{q}}
+                        <span ng-if="!$last">&gt;</span>
+                    </span>
+                </span>
+            </h2>
+            <h1>Please describe what happened</h1>
+        </header>
+
+        <label for="" class="visuallyhidden">
+            Please describe what happened
+        </label>
+
+        <div class="">
+            <textarea rows="4" id="NINO_NINO" name="NINO.NINO" value="" autocomplete="off" class="text validate u-full-width" data-validation-name="" data-validation-type="field" data-validation-rules=""></textarea> 
+        </div>
+        <p class="example">Example: I was given blood that didn't match my blood type - the nurses got mixed up and switched the bloods with someone else on the ward.</p>
+
+        <a id="continue" class="u-color-white u-inline-block button next" ng-click="logIn()">Send your feedback</a>
+    </div>
+  </form>
 </main>
 
     <footer class="group js-footer" id="footer" role="contentinfo">
