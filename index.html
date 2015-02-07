@@ -2,7 +2,7 @@
 <!-- saved from url=(0063)https://www.registertovote.service.gov.uk/register-to-vote/name -->
 <html lang="en" ng-app="patientApp"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
 
-    <title>
+    <title ng-bind="pageTitle">
 Enter Patient ID number
 </title>
 
@@ -61,6 +61,7 @@ Enter Patient ID number
 <link href="./gov-uk-files/print.css" media="print" rel="stylesheet" type="text/css">
 
 <link href="./marys-custom/marys.css" media="screen" rel="stylesheet" type="text/css">
+<script src="./marys-custom/underscore.js"></script>
 
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular-animate.js"></script>
@@ -160,20 +161,12 @@ var questions = {
 
 var getAllPaths = function(obj) {
     if (obj) {
-        var names = [];
-        for (var name in obj) {
-            if (obj.hasOwnProperty(name)) {
-                var subNames = getAllPaths(obj[name]);
-                if (subNames) {
-                    for (var i = 0; i < subNames.length; i++) {
-                        names.push(name + " > " + subNames[i]);
-                    }
-                }
-                else
-                    names.push(name);
-            }
-        }
-        return names;
+        return _.flatten(_.map(obj, function(val, name) {
+            var subNames = getAllPaths(val);
+            return subNames
+                ? _.map(subNames, function(subName) { return name + " > " + subName; })
+                : name;
+        }));
     }
 };
 
@@ -183,26 +176,23 @@ var decomposePaths = function(paths) {
 
 angular
     .module('patientApp', ['ngAnimate'])
-    .controller('MainController', ['$scope', function($scope) {
+    .controller('MainController', function($rootScope, $scope) {
         $scope.visual_state = "notLoggedIn";
-        $scope.holder = {}; // bypass the child scope databinding problem
+        $rootScope.pageTitle = "Enter Patient ID number";
 
-        $scope.logIn = function() {
-            $scope.currentQuestionPath = [];
-            updateQuestionsForPath();
-        };
+        $scope.holder = {}; // bypass the child scope databinding problem
 
         var updateQuestionsForPath = function() {
 
             if($scope.holder.searchText) {
                 var questionsAtPath = {};
-                var allQuestions = getAllPaths(questions);
-                for (var i = 0; i < allQuestions.length; i++) {
-                    var q = allQuestions[i];
-                    if (q.indexOf($scope.holder.searchText) > -1)
-                        questionsAtPath[q] = null;
-                }
-                $scope.title = "Search results for \"" + $scope.holder.searchText + "\"";
+
+                _.chain(getAllPaths(questions))
+                    .filter(function(q) { return q.indexOf($scope.holder.searchText) > -1; })
+                    .each(function(q) { questionsAtPath[q] = null; })
+                    .value();
+
+                $rootScope.pageTitle = "Search results for \"" + $scope.holder.searchText + "\"";
             }
             else {
                 var questionsAtPath = questions;
@@ -215,13 +205,19 @@ angular
                     }
                 }
                 $scope.currentQuestionPath = validatedPath;
-                $scope.title = $scope.currentQuestionPath[0] || "What would you like to report?";
+                $rootScope.pageTitle = $scope.currentQuestionPath[0] || "What would you like to report?";
             }
 
             $scope.currentQuestions = questionsAtPath;
             $scope.visual_state = ($scope.currentQuestions) ? "chooseAQuestion" : "enterFreeText";
             $scope.holder.questionSelection = "";
             $scope.holder.searchText = "";
+        };
+
+        $scope.logIn = function() {
+            // TODO login
+            $scope.currentQuestionPath = [];
+            updateQuestionsForPath();
         };
 
         $scope.chooseQuestion = function() {
@@ -236,7 +232,7 @@ angular
             $scope.currentQuestionPath = [];
             updateQuestionsForPath();
         };
-    }]);
+    });
 </script>
   </head>
 
@@ -311,7 +307,7 @@ angular
               <input type="search" ng-model="holder.searchText" id="site-search-text" title="Search" class="js-search-focus">
               <input type="submit" class="submit" value="search" />
             </div>
-            <h1>{{title}}</h1>
+            <h1>{{pageTitle}}</h1>
             <h3 ng-if="currentQuestionPath.length > 1">
                 <span ng-repeat="q in currentQuestionPath" ng-if="!$first">
                     {{q}}
