@@ -158,6 +158,29 @@ var questions = {
     "Other" : null
 };
 
+var getAllPaths = function(obj) {
+    if (obj) {
+        var names = [];
+        for (var name in obj) {
+            if (obj.hasOwnProperty(name)) {
+                var subNames = getAllPaths(obj[name]);
+                if (subNames) {
+                    for (var i = 0; i < subNames.length; i++) {
+                        names.push(name + " > " + subNames[i]);
+                    }
+                }
+                else
+                    names.push(name);
+            }
+        }
+        return names;
+    }
+};
+
+var decomposePaths = function(paths) {
+    return paths.split(" > ");
+}
+
 angular
     .module('patientApp', ['ngAnimate'])
     .controller('MainController', ['$scope', function($scope) {
@@ -171,21 +194,46 @@ angular
 
         var updateQuestionsForPath = function() {
 
-            var questionsAtPath = questions;
-            for (var i = 0; i < $scope.currentQuestionPath.length; i++) {
-                var pathStep = $scope.currentQuestionPath[i];
-                if (questionsAtPath && questionsAtPath.hasOwnProperty(pathStep)) {
-                    questionsAtPath = questionsAtPath[pathStep];
+            if($scope.holder.searchText) {
+                var questionsAtPath = {};
+                var allQuestions = getAllPaths(questions);
+                for (var i = 0; i < allQuestions.length; i++) {
+                    var q = allQuestions[i];
+                    if (q.indexOf($scope.holder.searchText) > -1)
+                        questionsAtPath[q] = null;
                 }
+                $scope.title = "Search results for \"" + $scope.holder.searchText + "\"";
+            }
+            else {
+                var questionsAtPath = questions;
+                var validatedPath = [];
+                for (var i = 0; i < $scope.currentQuestionPath.length; i++) {
+                    var pathStep = $scope.currentQuestionPath[i];
+                    if (questionsAtPath && questionsAtPath.hasOwnProperty(pathStep)) {
+                        questionsAtPath = questionsAtPath[pathStep];
+                        validatedPath.push(pathStep);
+                    }
+                }
+                $scope.currentQuestionPath = validatedPath;
+                $scope.title = $scope.currentQuestionPath[0] || "What would you like to report?";
             }
 
             $scope.currentQuestions = questionsAtPath;
-            $scope.holder.questionSelection = "";
             $scope.visual_state = ($scope.currentQuestions) ? "chooseAQuestion" : "enterFreeText";
+            $scope.holder.questionSelection = "";
+            $scope.holder.searchText = "";
         };
 
         $scope.chooseQuestion = function() {
-            $scope.currentQuestionPath.push($scope.holder.questionSelection);
+            var splitQ = decomposePaths($scope.holder.questionSelection);
+            for (var i = 0; i < splitQ.length; i++) {
+                $scope.currentQuestionPath.push(splitQ[i]);
+            }
+            updateQuestionsForPath();
+        };
+
+        $scope.find = function() {
+            $scope.currentQuestionPath = [];
             updateQuestionsForPath();
         };
     }]);
@@ -209,7 +257,6 @@ angular
               <img src="./marys-custom/checklist-on-white.png" width="35" height="31" alt=""> Ward watcher
             </a>
           </div>
-          
         </div>
         <div class="header-proposition">
         <div class="content">
@@ -234,9 +281,10 @@ angular
     <!--end global-header-bar-->
 
 <main id="content" class="" ng-controller="MainController">
-  <form ng-switch on="visual_state">
+  <div ng-switch on="visual_state">
 
     <div class="validate step" ng-switch-default>
+      <form ng-submit="logIn()">
         <header class="question-one">
             <h4>Log in</h4>
             <h1>What is the patient's study ID number?</h1>
@@ -251,22 +299,28 @@ angular
         </div>
         <p class="example">Example: ABC 123 P</p>
 
-        <a id="continue" class="u-color-white u-inline-block button next" ng-click="logIn()">Continue</a>
+        <input type="submit" value="Continue" id="continue" class="u-color-white u-inline-block button next" />
+      </form>
     </div>
 
     <div ng-switch-when="chooseAQuestion">
-        <header class="question-one">
-            <h1>
-                {{currentQuestionPath[0] || "What would you like to report?"}}
-            </h1>
+      <header class="question-one">
+          <form id="search" class="site-search" ng-submit="find()">
+            <div class="content">
+              <label for="site-search-text" class="visuallyhidden">Search</label>
+              <input type="search" ng-model="holder.searchText" id="site-search-text" title="Search" class="js-search-focus">
+              <input type="submit" class="submit" value="search" />
+            </div>
+            <h1>{{title}}</h1>
             <h3 ng-if="currentQuestionPath.length > 1">
                 <span ng-repeat="q in currentQuestionPath" ng-if="!$first">
                     {{q}}
                     <span ng-if="!$last">&gt;</span>
                 </span>
             </h3>
-        </header>
-
+          </form>
+      </header>
+      <form ng-submit="chooseQuestion()">
         <fieldset class="validate" data-validation-rules="atLeastOneNonEmpty">
             <label class="selectable" ng-repeat="(q, obj) in currentQuestions"
                 ng-class="{ 'selected': holder.questionSelection == q, 'selectable-focus': holder.questionSelection == q}">
@@ -275,10 +329,12 @@ angular
             </label>
         </fieldset>
 
-        <a id="continue" class="u-color-white u-inline-block button next" ng-click="chooseQuestion()">Continue</a>
+        <input type="submit" value="Continue" id="continue" class="u-color-white u-inline-block button next" />
+      </form>
     </div>
 
     <div ng-switch-when="enterFreeText">
+      <form ng-submit="logIn()">
         <header class="question-one">
             <h4 ng-repeat="q in currentQuestionPath">
                 <span ng-if="$first">{{q}}</span>
@@ -303,9 +359,10 @@ angular
         </div>
         <p class="example">Example: I was given blood that didn't match my blood type - the nurses got mixed up and switched the bloods with someone else on the ward.</p>
 
-        <a id="continue" class="u-color-white u-inline-block button next" ng-click="logIn()">Send your feedback</a>
+        <input type="submit" value="Send your feedback" id="continue" class="u-color-white u-inline-block button next" />
+      </form>
     </div>
-  </form>
+  </div>
 </main>
 
     <footer class="group js-footer" id="footer" role="contentinfo">
