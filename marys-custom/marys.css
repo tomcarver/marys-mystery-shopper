@@ -1,15 +1,78 @@
+main header h1 {
+    margin-top: 1em;
+}
+
+#global-header-bar {
+    margin: 0;
+    width: 100%;
+    max-width:100%;
+}
+
+#global-header-bar.searchIsVisible {
+    background-color: #199179;
+}
+
+#global-header-bar.greySearchBar {
+    background-color: #F0F0F0;
+}
+
 #global-header-bar .header-bar {
-	background-color: #199179;
+    background-color: transparent;
+    margin: 0 auto;
+    width: auto;
+    max-width: 1020px;
+    height: auto;
+    padding-bottom: 1em;
+}
+
+.header-bar-inner {
+    background-color: #199179;
+    height: 16px;
 }
 
 .u-inline-block {
-	display: inline-block;
+    display: inline-block;
 }
 
 a.u-color-white {
-	color: white;
+    color: white;
 }
 
 .u-full-width {
-	width: 100%;
+    width: 100%;
+}
+
+input.search-text {
+    font-family: "nta",Arial,sans-serif;
+    font-size: 19px;
+    line-height: 1.47368;
+    height: 28px;
+    font-weight: 400;
+    text-transform: none;
+    position: relative;
+    padding: 6px;
+    z-index: 3;
+    background: white;
+    border: 0px solid white;
+    margin: 0px;
+    width: 80%;
+}
+
+input.search-submit {
+    z-index: 4;
+    right: 0;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #0b0c0c;
+    border-width: 0 0 0 1px;
+    border-left-color: #222;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    overflow: hidden;
+    text-indent: -5000px;
+    cursor: pointer;
+    color: #fff;
+    background: #0b0c0c url(search.png) no-repeat 2px 50%;
 }

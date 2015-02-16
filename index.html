@@ -210,6 +210,8 @@ angular
 
             $scope.currentQuestions = questionsAtPath;
             $scope.visual_state = ($scope.currentQuestions) ? "chooseAQuestion" : "enterFreeText";
+            $scope.searchIsVisible = ($scope.visual_state == "chooseAQuestion");
+            $scope.greySearchBar = $scope.searchIsVisible && $scope.currentQuestionPath && $scope.currentQuestionPath.length;
             $scope.holder.questionSelection = "";
             $scope.holder.searchText = "";
         };
@@ -236,7 +238,7 @@ angular
 </script>
   </head>
 
-  <body class="js-enabled">
+  <body class="js-enabled" ng-controller="MainController">
     <script type="text/javascript">document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
 
     <div id="skiplink-container">
@@ -269,14 +271,26 @@ angular
     </header>
     <!--end header-->    
 
-    <div id="global-header-bar">
-      <div class="inner-block">
-        <div class="header-bar"></div>
+    <div id="global-header-bar" ng-class="{ searchIsVisible : searchIsVisible, greySearchBar :  greySearchBar }">
+      <div class="header-bar">
+        <div class="inner-block">
+          <div class="header-bar-inner">
+          </div>
+        </div>
+
+          <form id="search" class="site-search" ng-submit="find()" ng-if="searchIsVisible">
+            <div class="content">
+              <label for="site-search-text" class="visuallyhidden">Search</label>
+              <input type="search" ng-model="holder.searchText" id="site-search-text" title="Search" class="js-search-focus search-text"
+><input type="submit" class="submit search-submit" value="search" />
+            </div>
+          </form>
+
       </div>
     </div>
     <!--end global-header-bar-->
 
-<main id="content" class="" ng-controller="MainController">
+<main id="content" class="">
   <div ng-switch on="visual_state">
 
     <div class="validate step" ng-switch-default>
@@ -300,13 +314,8 @@ angular
     </div>
 
     <div ng-switch-when="chooseAQuestion">
-      <header class="question-one">
-          <form id="search" class="site-search" ng-submit="find()">
-            <div class="content">
-              <label for="site-search-text" class="visuallyhidden">Search</label>
-              <input type="search" ng-model="holder.searchText" id="site-search-text" title="Search" class="js-search-focus">
-              <input type="submit" class="submit" value="search" />
-            </div>
+      <form ng-submit="chooseQuestion()">
+        <header class="question-one">
             <h1>{{pageTitle}}</h1>
             <h3 ng-if="currentQuestionPath.length > 1">
                 <span ng-repeat="q in currentQuestionPath" ng-if="!$first">
@@ -314,9 +323,7 @@ angular
                     <span ng-if="!$last">&gt;</span>
                 </span>
             </h3>
-          </form>
-      </header>
-      <form ng-submit="chooseQuestion()">
+        </header>
         <fieldset class="validate" data-validation-rules="atLeastOneNonEmpty">
             <label class="selectable" ng-repeat="(q, obj) in currentQuestions"
                 ng-class="{ 'selected': holder.questionSelection == q, 'selectable-focus': holder.questionSelection == q}">
