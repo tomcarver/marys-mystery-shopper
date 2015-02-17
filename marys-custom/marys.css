@@ -1,3 +1,27 @@
+@font-face{
+    font-family: 'Open Sans Light';
+    src:url(OpenSans-Light-webfont.woff);
+    src:url(OpenSans-Light-webfont.woff) format('woff');
+    font-weight: 200;
+    font-style:normal
+}
+
+@font-face{
+    font-family: 'Open Sans Regular';
+    src:url(OpenSans-Regular-webfont.woff);
+    src:url(OpenSans-Regular-webfont.woff) format('woff');
+    font-weight: 400;
+    font-style:normal
+}
+
+@font-face{
+    font-family: 'Open Sans Semibold';
+    src:url(OpenSans-Semibold-webfont.woff);
+    src:url(OpenSans-Semibold-webfont.woff) format('woff');
+    font-weight: 700;
+    font-style:normal
+}
+
 main header h1 {
     margin-top: 1em;
 }
@@ -75,4 +99,21 @@ input.search-submit {
     cursor: pointer;
     color: #fff;
     background: #0b0c0c url(search.png) no-repeat 2px 50%;
+}
+
+h1, h2, h3, h4 {
+    font-weight: 200;
+    font-family: 'Open Sans Light',sans-serif;
+}
+
+p, ol, ul, li, label, textarea,
+input, input.search-text, .next {
+    font-weight: 400;
+    font-family: 'Open Sans Regular',sans-serif;
+}
+
+#global-header .header-proposition #proposition-name,
+#global-header {
+    font-weight: 700;
+    font-family: 'Open Sans Semibold',sans-serif;
 }
