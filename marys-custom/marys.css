@@ -37,6 +37,11 @@ main header h1 {
     background-color: #199179;
 }
 
+.button:hover,
+.button:focus {
+    background-color: #157a66;
+}
+
 #global-header-bar.greySearchBar {
     background-color: #F0F0F0;
 }
