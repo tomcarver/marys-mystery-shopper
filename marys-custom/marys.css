@@ -32,7 +32,8 @@ main header h1 {
     max-width:100%;
 }
 
-#global-header-bar.searchIsVisible {
+#global-header-bar.searchIsVisible,
+.button {
     background-color: #199179;
 }
 
@@ -101,11 +102,7 @@ input.search-submit {
     background: #0b0c0c url(search.png) no-repeat 2px 50%;
 }
 
-h1, h2, h3, h4 {
-    font-weight: 200;
-    font-family: 'Open Sans Light',sans-serif;
-}
-
+h1, h2, h3, h4,
 p, ol, ul, li, label, textarea,
 input, input.search-text, .next {
     font-weight: 400;
