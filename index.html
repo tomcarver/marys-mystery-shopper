@@ -180,9 +180,10 @@ angular
 
             if($scope.holder.searchText) {
                 var questionsAtPath = {};
+                var lowerSearchText = $scope.holder.searchText.toLowerCase();
 
                 _.chain(getAllPaths(questions))
-                    .filter(function(q) { return q.indexOf($scope.holder.searchText) > -1; })
+                    .filter(function(q) { return q.toLowerCase().indexOf(lowerSearchText) > -1; })
                     .each(function(q) { questionsAtPath[q] = null; })
                     .value();
 
