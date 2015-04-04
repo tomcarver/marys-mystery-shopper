@@ -55,6 +55,10 @@ main header h1 {
     padding-bottom: 1em;
 }
 
+#proposition-menu {
+    text-align: right;
+}
+
 .header-bar-inner {
     background-color: #199179;
     height: 16px;
