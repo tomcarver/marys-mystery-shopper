@@ -217,6 +217,7 @@ angular
               : "notLoggedIn";
             $scope.searchIsVisible = ($scope.visual_state == "chooseAQuestion");
             $scope.greySearchBar = $scope.searchIsVisible && $scope.currentQuestionPath && $scope.currentQuestionPath.length;
+            location.href = "#"; // scroll to top - $location does not create same effect
         };
 
         $scope.$watch($scope.holder.searchText, updateQuestionsForPath);
