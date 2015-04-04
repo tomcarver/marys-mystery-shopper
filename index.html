@@ -239,6 +239,11 @@ angular
         };
 
         $scope.find = updateQuestionsForPath;
+
+        $scope.back = function() {
+            $scope.currentQuestionPath.pop();
+            updateQuestionsForPath();
+        };
     });
 </script>
   </head>
@@ -320,6 +325,9 @@ angular
 
     <div ng-switch-when="chooseAQuestion">
       <form>
+        <a class="back-to-previous" ng-if="currentQuestionPath.length > 0" ng-click="back()">
+            Back
+        </a>
         <header class="question-one">
             <h1>{{pageTitle}}</h1>
             <h3 ng-if="currentQuestionPath.length > 1">
@@ -339,6 +347,12 @@ angular
     <div ng-switch-when="enterFreeText">
       <form ng-submit="logIn()">
         <header class="question-one">
+            <h4>
+                <a class="back-to-previous" ng-click="back()">
+                    Back
+                </a>
+                &nbsp;
+            </h4>
             <h4 ng-repeat="q in currentQuestionPath">
                 <span ng-if="$first">{{q}}</span>
             </h4>

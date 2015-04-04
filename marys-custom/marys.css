@@ -127,3 +127,7 @@ input, input.search-text, .next {
     font-weight: 700;
     font-family: 'Open Sans Semibold',sans-serif;
 }
+
+a.back-to-previous {
+    background: url("icon-caret-left.png") left 0.2em no-repeat;
+}
