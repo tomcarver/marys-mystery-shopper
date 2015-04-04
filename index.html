@@ -171,10 +171,14 @@ var decomposePaths = function(paths) {
 angular
     .module('patientApp', ['ngAnimate'])
     .controller('MainController', function($rootScope, $scope) {
-        $scope.visual_state = "notLoggedIn";
+        $scope.isLoggedIn = false;
         $rootScope.pageTitle = "Enter Patient ID number";
 
-        $scope.holder = {}; // bypass the child scope databinding problem
+        $scope.currentQuestionPath = [];
+        $scope.holder = {
+          searchText : "",
+          questionSelection : ""
+        }; // bypass the child scope databinding problem
 
         var updateQuestionsForPath = function() {
 
@@ -204,16 +208,21 @@ angular
             }
 
             $scope.currentQuestions = questionsAtPath;
-            $scope.visual_state = ($scope.currentQuestions) ? "chooseAQuestion" : "enterFreeText";
+            $scope.visual_state = $scope.isLoggedIn
+              ? (($scope.currentQuestions) ? "chooseAQuestion" : "enterFreeText")
+              : "notLoggedIn";
             $scope.searchIsVisible = ($scope.visual_state == "chooseAQuestion");
             $scope.greySearchBar = $scope.searchIsVisible && $scope.currentQuestionPath && $scope.currentQuestionPath.length;
             $scope.holder.questionSelection = "";
-            $scope.holder.searchText = "";
         };
+
+        $scope.$watch($scope.holder.searchText, updateQuestionsForPath);
 
         $scope.logIn = function() {
             // TODO login
+            $scope.isLoggedIn = true;
             $scope.currentQuestionPath = [];
+            $scope.holder.searchText = "";
             updateQuestionsForPath();
         };
 
@@ -222,13 +231,11 @@ angular
             for (var i = 0; i < splitQ.length; i++) {
                 $scope.currentQuestionPath.push(splitQ[i]);
             }
+            $scope.holder.searchText = "";
             updateQuestionsForPath();
         };
 
-        $scope.find = function() {
-            $scope.currentQuestionPath = [];
-            updateQuestionsForPath();
-        };
+        $scope.find = updateQuestionsForPath;
     });
 </script>
   </head>
@@ -273,11 +280,11 @@ angular
           </div>
         </div>
 
-          <form id="search" class="site-search" ng-submit="find()" ng-if="searchIsVisible">
+          <form id="search" class="site-search" ng-if="searchIsVisible">
             <div class="content">
               <label for="site-search-text" class="visuallyhidden">Search</label>
               <input type="search" ng-model="holder.searchText" id="site-search-text" title="Search" class="js-search-focus search-text"
-><input type="submit" class="submit search-submit" value="search" />
+                  ng-change="find()"><input type="submit" class="submit search-submit" value="search" />
             </div>
           </form>
 
