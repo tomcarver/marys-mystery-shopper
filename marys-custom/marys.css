@@ -111,6 +111,10 @@ input.search-submit {
     background: #0b0c0c url(search.png) no-repeat 2px 50%;
 }
 
+button.next {
+    text-align: left;
+}
+
 h1, h2, h3, h4,
 p, ol, ul, li, label, textarea,
 input, input.search-text, .next {

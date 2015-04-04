@@ -176,8 +176,7 @@ angular
 
         $scope.currentQuestionPath = [];
         $scope.holder = {
-          searchText : "",
-          questionSelection : ""
+          searchText : ""
         }; // bypass the child scope databinding problem
 
         var updateQuestionsForPath = function() {
@@ -213,7 +212,6 @@ angular
               : "notLoggedIn";
             $scope.searchIsVisible = ($scope.visual_state == "chooseAQuestion");
             $scope.greySearchBar = $scope.searchIsVisible && $scope.currentQuestionPath && $scope.currentQuestionPath.length;
-            $scope.holder.questionSelection = "";
         };
 
         $scope.$watch($scope.holder.searchText, updateQuestionsForPath);
@@ -226,8 +224,8 @@ angular
             updateQuestionsForPath();
         };
 
-        $scope.chooseQuestion = function() {
-            var splitQ = decomposePaths($scope.holder.questionSelection);
+        $scope.chooseQuestion = function(questionSelection) {
+            var splitQ = decomposePaths(questionSelection);
             for (var i = 0; i < splitQ.length; i++) {
                 $scope.currentQuestionPath.push(splitQ[i]);
             }
@@ -316,7 +314,7 @@ angular
     </div>
 
     <div ng-switch-when="chooseAQuestion">
-      <form ng-submit="chooseQuestion()">
+      <form>
         <header class="question-one">
             <h1>{{pageTitle}}</h1>
             <h3 ng-if="currentQuestionPath.length > 1">
@@ -326,15 +324,10 @@ angular
                 </span>
             </h3>
         </header>
-        <fieldset class="validate" data-validation-rules="atLeastOneNonEmpty">
-            <label class="selectable" ng-repeat="(q, obj) in currentQuestions"
-                ng-class="{ 'selected': holder.questionSelection == q, 'selectable-focus': holder.questionSelection == q}">
-                <input type="radio" value="{{q}}" class="radio validate" data-validation-rules="nonEmpty" ng-model="holder.questionSelection">
-                {{q}}
-            </label>
-        </fieldset>
-
-        <input type="submit" value="Continue" id="continue" class="u-color-white u-inline-block button next" />
+        <button ng-repeat="(q, obj) in currentQuestions"
+                ng-click="chooseQuestion(q)" class="u-color-white button next">
+            {{q}}
+        </button>
       </form>
     </div>
 
