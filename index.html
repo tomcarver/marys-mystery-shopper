@@ -61,121 +61,270 @@ Enter Patient ID number
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular-animate.js"></script>
 <script type="text/javascript">
 
+var additionalSearchTerms = { // 78
+  "A keyhole or laparoscopic operation had to be converted to open": "",
+  "A test, surgical intervention or therapy was performed on the wrong site of your body.": "",
+  "A test or procedure was interrupted by Equipment malfunction": "",
+  "A test was cancelled by mistake": "",
+  "A test was not done when it should have been": "",
+  "A test was repeated needlessly, by mistake": "",
+  "An error occurred in a test result": "",
+  "An infusion or drug was omitted, by mistake.": "",
+  "Cellulitis": "",
+  "C.diff colitis": "",
+  "Doctors made a wrong diagnosis": "",
+  "Doctors or nurses did not respect confidentiality": "",
+  "Doctors or nurses ignored information you gave them": "",
+  "Failure to order drug": "",
+  "Health care staff did not introduce themselves and explain who they were": "",
+  "Intra-abdominal abscess": "",
+  "Phlebitis": "",
+  "Pneumonia": "",
+  "Problems with environment and amenities. In what?": "",
+  "Sepsis / bacteraemia": "",
+  "Something was inappropriately left inside you (retained foreign body)": "",
+  "Staff were unable to obtain a blood sample": "",
+  "The wrong implant or prosthesis was used": "",
+  "The purpose of the medication was not explained to you": "",
+  "The side effects of your medication were not explained to you": "",
+  "There was a delay in giving you your medication": "",
+  "Urinary tract infection": "",
+  "Wound infection": "",
+  "You bled a lot after an operation or after a tube or drain was inserted into you": "",
+  "You developed a collection of blood (haematoma) or fluid (seroma) at the site of an operation or procedure": "",
+  "You developed a DVT (deep vein thrombosis) or PE (pulmonary embolism)": "",
+  "You developed a sore arm or inflammation because of a drip (intravenous line)": "",
+  "You developed a pressure ulcer (skin wound) in hospital": "",
+  "You developed worsened anxiety or depression": "",
+  "You developed problems passing urine (oliguria/ failure/ incontinence / retention)": "",
+  "You developed a collapsed lung or pneumothorax after a procedure": "",
+  "You did not receive enough painkillers": "",
+  "You did not feel that you could ask questions to doctors and nurses if you wanted to": "",
+  "You discovered that staff did not wash their hands or use alcohol gel before touching you.": "",
+  "You experienced a reaction to a drug": "",
+  "You experienced unexplained waits and delays. In what? For how long?": "",
+  "You felt physically abused": "",
+  "You had a heart attack (myocardial infarction) in hospital": "",
+  "You had to be re-operated on urgently after your initial operation": "",
+  "You had low blood pressure (hypotension)": "",
+  "You had a reaction to a blood transfusion": "",
+  "You had problems with your stoma": "",
+  "You had a fall in hospital": "",
+  "You needed to be transferred to intensive care because of a complication that occurred in hospital": "",
+  "You noticed Inadequate staffing - nurses/doctor/other": "",
+  "You required ongoing support with your breathing": "",
+  "You suffered an unintended injury at the time of the operation": "",
+  "You suffered a stroke (CVA)": "",
+  "You were not monitored or followed-up as planned": "",
+  "You were confused with another patient during a test or a treatment": "",
+  "You were given a drug that was not intended for you": "",
+  "You were given food/drink you were not allowed on your diet? (e.g. if you were nil by mouth)": "",
+  "You were prescribed a drug you were allergic to": "",
+  "You were prescribed an inappropriate choice of drug eg due to contraindication": "",
+  "You were given an infusion or drug that was not intended for you.": "",
+  "You were given an infusion or drug at the wrong time": "",
+  "You were given an infusion or drug at the wrong dose": "",
+  "You were addressed informally without your agreement": "",
+  "You were not treated with dignity and respect by the doctors and nurses": "",
+  "You were not explained how the ward works? (e.g. where the toilets are, what time meals are?)": "",
+  "You were not given enough information about your care after discharge from hospital": "",
+  "You were not explained about what to expect from your treatment while in hospital": "",
+  "You were handled or moved with roughness": "",
+  "You were pushed to undergo a test or a treatment against your wish": "",
+  "Your anastomosis leaked after the operation": "",
+  "Your bowels become blocked (obstruction)": "",
+  "Your bowels did not work for a prolonged period (ileus)": "",
+  "Your graft or bypass became occluded": "",
+  "Your wound opened up unexpectedly (wound dehiscence)": "",
+  "Your fluids in your drip were not changed when they should have been": "",
+  "Your medical records were unavailable when needed": "",
+  "Your diagnosis was not explained to you.": "",
+  "Your consent was not obtained before a test or an intervention": "",
+};
+
 var questions = {
-    "Medical complications" : {
-        "You developed a sore arm or inflammation because of a drip (intravenous line)" : null,
-        "You caught an infection in the hospital" : {
-            "Pneumonia" : null,
-            "C.diff colitis" : null,
-            "Sepsis / bacteraemia" : null,
-            "Urinary tract infection" : null,
-            "Phlebitis" : null,
-            "Wound infection" : null,
-            "Intra-abdominal abscess" : null,
-            "Cellulitis" : null,
-            "Other" : null
-        },
-        "You experienced a reaction to a drug" : null,
-        "You bled a lot after an operation or after a tube or drain was inserted into you" : null,
-        "You developed a collection of blood (haematoma) or fluid (seroma) at the site of an operation or procedure" : null,
-        "Your wound opened up enexpectedly (wound dehiscence)" : null,
-        "You needed to be transferred to intensive care because of a complication that occurred in hospital" : null,
-        "You developed a pressure ulcer (skin wound) in hospital" : null,
-        "You had to be re-operated on urgently after your initial operation" : null,
-        "You had a fall in hospital" : null,
-        "You had a reaction to a blood transfusion" : null,
-        "You developed a DVT (deep vein thrombosis) or PE (pulmonary embolism)" : null,
-        "You developed a collapsed lung or pneumothorax after a procedure" : null,
-        "You required ongoing support with your breathing" : null,
-        "You had a heart attack (myocardial infarction) in hospital" : null,
-        "You had low blood pressure (hypotension)" : null,
-        "Your bowels did not work for a prolonged period (ileus)" : null,
-        "Your bowels become blocked (obstruction)" : null,
-        "You suffered an unintended injury at the time of the operation" : null,
-        "A keyhole or laparoscopic operation had to be converted to open" : null,
-        "You developed problems passing urine (oliguria/ failure/ incontinence / retention)" : null,
-        "You suffered a stroke (CVA)" : null,
-        "You developed worsened anxiety or depression" : null,
-        "Your anastomosis leaked after the operation" : null,
-        "You had problems with your stoma" : null,
-        "Other" : null
+  "Complications" : {
+    "During Operation" : {
+      "A keyhole operation had to be converted to open" : "A keyhole or laparoscopic operation had to be converted to open",
+      "You experienced a reaction to a drug" : "You experienced a reaction to a drug",
+      "You suffered an injury at the time of the operation" : "You suffered an unintended injury at the time of the operation",
+      "You had a stroke" : "You suffered a stroke (CVA)",
+      "You had a heart attack" : "You had a heart attack (myocardial infarction) in hospital",
+      "You bled a lot after an operation" : "You bled a lot after an operation or after a tube or drain was inserted into you",
+      "An operation was performed on the wrong site of your body" : "A test, surgical intervention or therapy was performed on the wrong site of your body.",
+      "Something was inappropriately left inside you" : "Something was inappropriately left inside you (retained foreign body)",
+      "The wrong implant was use" : "The wrong implant or prosthesis was used"
     },
-    "Healthcare process problems" : {
-        "Your medical records were unavailable when needed" : null,
-        "You did not receive enough painkillers" : null,
-        "Doctors made a wrong diagnosis" : null,
-        "You were given food/drink you were not allowed on your diet? (e.g. if you were nil by mouth)" : null,
-        "Your fluids in your drip were not changed when they should have been" : null,
-        "A test was not done when it should have been" : null,
-        "A test was repeated needlessly, by mistake" : null,
-        "You were given a drug that was not intended for you" : null,
-        "You were confused with another patient during a test or a treatment" : null,
-        "A test was cancelled by mistake" : null,
-        "An error occurred in a test result" : null,
-        "A test, surgical intervention or therapy was performed on the wrong site of your body." : null,
-        "The worng implant or prosthesis was used" : null,
-        "Something was inappropriately left inside you (retained foreign body)" : null,
-        "You discovered that staff did not wash their hands or use alcohol gel before touching you." : null,
-        "Staff were unable to obtain a blood sample" : null,
-        "You experienced unexplained waits and delays. In what? For how long?" : null,
-        "Problems with environment and amenities. In what?" : null,
-        "You noticed Inadequate staffing - nurses/doctor/other" : null,
-        "You were not monitored or followed-up as planned" : null,
-        "A test or procedure was interrupted by Equipment malfunction" : null,
-        "Other" : null
-    },
-    "Medication-related problems" : {
-        "You experienced a reaction to a drug" : null,
-        "You were prescribed a drug you were allergic to" : null,
-        "You were prescribed an Inappropriate choice of drug eg due to contraindication" : null,
-        "You were given an infusion or drug that was not intended for you." : null,
-        "You were given an infusion or drug at the wrong time" : null,
-        "You were given an infusion or drug at the wrong dose" : null,
-        "An infusion or drug was omitted, by mistake." : null,
-        "There was a delay in giving you your medication" : null,
-        "Failure to order drug" : null,
-        "Other" : null
-    },
-    "Interpersonal problems" : {
-        "Your diagnosis was not explained to you." : null,
-        "You were not explained about what to expect from your treatment while in hospital" : null,
-        "The purpose of the medication was not explained to you" : null,
-        "The side effects of your medication were not explained to you" : null,
-        "Health care staff did not introduce themselves and explain who they were" : null,
-        "You were addressed informally without your agreement" : null,
-        "You were not explained how the ward works? (e.g. where the toilets are, what time meals are?)" : null,
-        "You were not given enough information about your care after discharge from hospital" : null,
-        "You were not treated with dignity and respect by the doctors and nurses" : null,
-        "You did not feel that you could ask questions to doctors and nurses if you wanted to" : null,
-        "Doctors or nurses did not respect confidentiality" : null,
-        "Doctors or nurses ignored information you gave them" : null,
-        "Your consent was not obtained before a test or an intervention" : null,
-        "You were pushed to undergo a test or a treatment against your wish" : null,
-        "You were handled or moved with roughness" : null,
-        "You felt physically abused" : null,
-        "Other" : null
-    },
-    "Other" : null
-};
-
-var getAllPaths = function(obj) {
-    if (obj) {
-        return _.flatten(_.map(obj, function(val, name) {
-            var subNames = getAllPaths(val);
-            return subNames
-                ? _.map(subNames, function(subName) { return name + " > " + subName; })
-                : name;
-        }));
+    "Post-Op" : {
+      "Emergency" : {
+        "You needed to be transferred to intensive care" : "You needed to be transferred to intensive care because of a complication that occurred in hospital",
+        "You had to be re-operated on urgently after your initial operation" : "You had to be re-operated on urgently after your initial operation"
+      },
+      "Bleeding" : {
+        "You bled a lot after an operation or after a tube or drain was inserted into you" : "You bled a lot after an operation or after a tube or drain was inserted into you",
+        "You developed a collection of blood at the site of an operation or procedure" : "You developed a collection of blood (haematoma) or fluid (seroma) at the site of an operation or procedure"
+      },
+      "Infection" : {
+        "Chest Infection" : "Pneumonia",
+        "Infective Diarrhoea" : "C.diff colitis",
+        "Sepsis" : "Sepsis / bacteraemia",
+        "Urinary tract infection" : "Urinary tract infection",
+        "Phlebitis" : "Phlebitis",
+        "Wound infection" : "Wound infection",
+        "Intra-abdominal abscess" : "Intra-abdominal abscess",
+        "Skin infection" : "Cellulitis"
+      },
+      "Heart and Circulation" : {
+        "You had a stroke" : "You suffered a stroke (CVA)",
+        "You had a heart attack" : "You had a heart attack (myocardial infarction) in hospital",
+        "You developed a blood clot" : "You developed a DVT (deep vein thrombosis) or PE (pulmonary embolism)",
+        "Your graft or bypass became occluded" : "Your graft or bypass became occluded",
+        "You had low blood pressure" : "You had low blood pressure (hypotension)",
+        "You had a reaction to a blood transfusion" : "You had a reaction to a blood transfusion",
+        "You had a heart attack" : "You had a heart attack (myocardial infarction) in hospital",
+        "You had low blood pressure" : "You had low blood pressure (hypotension)"
+      },
+      "Skin" : {
+        "You developed a sore arm or inflammation because of a drip" : "You developed a sore arm or inflammation because of a drip (intravenous line)",
+        "Phlebitis" : "Phlebitis",
+        "Wound infection" : "Wound infection",
+        "Skin infection" : "Cellulitis",
+        "Your wound opened up unexpectedly" : "Your wound opened up unexpectedly (wound dehiscence)",
+        "You developed a pressure ulcer" : "You developed a pressure ulcer (skin wound) in hospital"
+      },
+      "Mood" : {
+        "You developed worsened anxiety or depression" : "You developed worsened anxiety or depression"
+      },
+      "Abdomen" : {
+        "You had problems with your stoma" : "You had problems with your stoma",
+        "Your anastomosis leaked after the operation" : "Your anastomosis leaked after the operation",
+        "Your bowels become blocked" : "Your bowels become blocked (obstruction)",
+        "Your bowels did not work for a prolonged period" : "Your bowels did not work for a prolonged period (ileus)",
+        "Wound infection" : "Wound infection",
+        "Your wound opened up unexpectedly" : "Your wound opened up unexpectedly (wound dehiscence)"
+      },
+      "Chest" : {
+        "You developed a blood clot" : "You developed a DVT (deep vein thrombosis) or PE (pulmonary embolism)",
+        "You required ongoing support with your breathing" : "You required ongoing support with your breathing",
+        "You developed a collapsed lung" : "You developed a collapsed lung or pneumothorax after a procedure",
+        "Chest Infection" : "Pneumonia"
+      },
+      "Urine" : {
+        "You developed problems passing urine" : "You developed problems passing urine (oliguria/ failure/ incontinence / retention)",
+        "Urinary tract infection" : "Urinary tract infection"
+      }
     }
+  },
+  "Health care process problems" : {
+    "Problem with Test" : {
+      "A test or procedure was interrupted by equipment malfunction" : "A test or procedure was interrupted by Equipment malfunction",
+      "A test was cancelled by mistake" : "A test was cancelled by mistake",
+      "A test was not done when it should have been" : "A test was not done when it should have been",
+      "A test was repeated needlessly" : "A test was repeated needlessly, by mistake",
+      "A test was performed on the wrong site of your body" : "A test, surgical intervention or therapy was performed on the wrong site of your body.",
+      "An error occurred in a test result" : "An error occurred in a test result"
+    },
+    "Problem with Ward" : {
+      "Problems with environment and amenities" : "Problems with environment and amenities. In what?",
+      "You had a fall in hospital" : "You had a fall in hospital"
+    },
+    "Problem with Operation" : {
+      "An operation was performed on the wrong site of your body" : "A test, surgical intervention or therapy was performed on the wrong site of your body.",
+      "Something was inappropriately left inside you" : "Something was inappropriately left inside you (retained foreign body)",
+      "The wrong implant was used" : "The wrong implant or prosthesis was used"
+    },
+    "Problem with Staff" : {
+      "Doctors made a wrong diagnosis" : "Doctors made a wrong diagnosis",
+      "Staff did not wash their hands or use alcohol gel before touching you" : "You discovered that staff did not wash their hands or use alcohol gel before touching you.",
+      "You noticed Inadequate staffing - nurses/doctor/other" : "You noticed Inadequate staffing - nurses/doctor/other",
+      "You were given food/drink you were not allowed (e.g. if you were nil by mouth)" : "You were given food/drink you were not allowed on your diet? (e.g. if you were nil by mouth)",
+      "You were not monitored or followed-up as planned" : "You were not monitored or followed-up as planned",
+      "Your fluids in your drip were not changed when they should have been" : "Your fluids in your drip were not changed when they should have been",
+      "You did not receive enough painkillers" : "You did not receive enough painkillers"
+    },
+    "Waits and Delays" : {
+      "Your medical records were unavailable when needed" : "Your medical records were unavailable when needed",
+      "Staff were unable to obtain a blood sample" : "Staff were unable to obtain a blood sample",
+      "You experienced unexplained waits and delays. In what? For how long?" : "You experienced unexplained waits and delays. In what? For how long?",
+      "You were not monitored or followed-up as planned" : "You were not monitored or followed-up as planned",
+      "Your fluids in your drip were not changed when they should have been" : "Your fluids in your drip were not changed when they should have been",
+      "You did not receive enough painkillers" : "You did not receive enough painkillers"
+    },
+    "Wrong Management" : {
+      "Doctors made a wrong diagnosis" : "Doctors made a wrong diagnosis",
+      "A test, surgical intervention or therapy was performed on the wrong site of your body" : "A test, surgical intervention or therapy was performed on the wrong site of your body.",
+      "The wrong implant was used" : "The wrong implant or prosthesis was used",
+      "You were confused with another patient during a test or a treatment" : "You were confused with another patient during a test or a treatment",
+      "You were given a drug that was not intended for you" : "You were given a drug that was not intended for you",
+      "You were given food/drink you were not allowed (e.g. if you were nil by mouth)" : "You were given food/drink you were not allowed on your diet? (e.g. if you were nil by mouth)"
+    }
+  },
+  "Medication-related problems" : {
+    "You experienced a reaction to a drug" : "You experienced a reaction to a drug",
+    "You were prescribed a drug you were allergic to" : "You were prescribed a drug you were allergic to",
+    "You were prescribed an inappropriate choice of drug" : "You were prescribed an inappropriate choice of drug eg due to contraindication",
+    "You were given medication that was not intended for you" : "You were given an infusion or drug that was not intended for you.",
+    "You were given medication at the wrong time" : "You were given an infusion or drug at the wrong time",
+    "You were given medication at the wrong dose" : "You were given an infusion or drug at the wrong dose",
+    "Medication was omitted, by mistake" : "An infusion or drug was omitted, by mistake.",
+    "There was a delay in giving you your medication" : "There was a delay in giving you your medication",
+    "Failure to order drug" : "Failure to order drug"
+  },
+  "Interpersonal problems" : {
+    "Dignity and Respect" : {
+      "Doctors or nurses did not respect confidentiality" : "Doctors or nurses did not respect confidentiality",
+      "Doctors or nurses ignored information you gave them" : "Doctors or nurses ignored information you gave them",
+      "Doctors or nurses did not introduce themselves and explain who they were" : "Health care staff did not introduce themselves and explain who they were",
+      "You did not feel that you could ask questions to doctors and nurses" : "You did not feel that you could ask questions to doctors and nurses if you wanted to",
+      "You were addressed informally without your agreement" : "You were addressed informally without your agreement",
+      "You were not treated with dignity and respect by the doctors and nurses" : "You were not treated with dignity and respect by the doctors and nurses"
+    },
+    "No Explanation" : {
+      "Health care staff did not introduce themselves and explain who they were" : "Health care staff did not introduce themselves and explain who they were",
+      "The purpose of the medication was not explained to you" : "The purpose of the medication was not explained to you",
+      "The side effects of your medication were not explained to you" : "The side effects of your medication were not explained to you",
+      "You were not explained how the ward works? (e.g. where the toilets are, what time meals are?" : "You were not explained how the ward works? (e.g. where the toilets are, what time meals are?)",
+      "You were not given enough information about your care after discharge" : "You were not given enough information about your care after discharge from hospital",
+      "You were not explained about what to expect from your treatment while in hospital" : "You were not explained about what to expect from your treatment while in hospital",
+      "Your diagnosis was not explained to you" : "Your diagnosis was not explained to you."
+    },
+    "Rough Treatment" : {
+      "You were handled or moved with roughness" : "You were handled or moved with roughness",
+      "You felt physically abused" : "You felt physically abused"
+    },
+    "Consent" : {
+      "Your consent was not obtained before a test or an intervention" : "Your consent was not obtained before a test or an intervention",
+      "You were pushed to undergo a test or a treatment against your wish" : "You were pushed to undergo a test or a treatment against your wish"
+    }
+  }
 };
 
-var decomposePaths = function(paths) {
-    return paths.split(" > ");
-}
+var getAllLeaves = function(obj) {
+    return isString(obj)
+        ? obj
+        : _.flatten(_.map(obj, getAllLeaves));
+};
+
+sanityTestQuestions = function() {
+    var q1 = _.uniq(getAllLeaves(questions));
+    var q2 = _.uniq(_.keys(additionalSearchTerms));
+
+    _.each(_.difference(q1, q2), function(str) { console.log("In hierarchy but not main list : " + str); });
+    _.each(_.difference(q2, q1), function(str) { console.log("In main list but not hierarchy : " + str); });
+};
+
+var contains = function(str, lowerSearchText) {
+    return str.toLowerCase().indexOf(lowerSearchText) > -1;
+};
+
+var isString = function(obj) {
+    return typeof obj == 'string' || obj instanceof String;
+};
 
 angular
     .module('patientApp', ['ngAnimate'])
     .controller('MainController', function($rootScope, $scope) {
+        sanityTestQuestions();
         $scope.isLoggedIn = false;
         $rootScope.pageTitle = "Enter Patient ID number";
 
@@ -184,43 +333,47 @@ angular
           searchText : ""
         }; // bypass the child scope databinding problem
 
-        var updateQuestionsForPath = function() {
+        var updateQuestionsForPath = function(questionSelection) {
 
             if($scope.holder.searchText) {
                 var questionsAtPath = {};
                 var lowerSearchText = $scope.holder.searchText.toLowerCase();
 
-                _.chain(getAllPaths(questions))
-                    .filter(function(q) { return q.toLowerCase().indexOf(lowerSearchText) > -1; })
-                    .each(function(q) { questionsAtPath[q] = null; })
+                _.chain(additionalSearchTerms)
+                    .map(function(val, key) { return { key: key, val: val }; })
+                    .filter(function(obj) { return contains(obj.key, lowerSearchText) || contains(obj.val, lowerSearchText); })
+                    .each(function(obj) { questionsAtPath[obj.key] = obj.key; })
                     .value();
 
                 $rootScope.pageTitle = "Search results for \"" + $scope.holder.searchText + "\"";
             }
             else {
-                var questionsAtPath = questions;
-                var validatedPath = [];
-                for (var i = 0; i < $scope.currentQuestionPath.length; i++) {
-                    var pathStep = $scope.currentQuestionPath[i];
-                    if (questionsAtPath && questionsAtPath.hasOwnProperty(pathStep)) {
-                        questionsAtPath = questionsAtPath[pathStep];
-                        validatedPath.push(pathStep);
+                if (questionSelection) {
+                    var questionsAtPath = (questionSelection == "Other")
+                        ? $scope.currentQuestionPath.join(" > ")
+                        : $scope.currentQuestions[questionSelection];
+                }
+                else {
+                    var questionsAtPath = questions;
+                    
+                    for (var i = 0; i < $scope.currentQuestionPath.length; i++) {
+                        var pathStep = $scope.currentQuestionPath[i];
+                        if (!isString(questionsAtPath) && questionsAtPath.hasOwnProperty(pathStep)) {
+                            questionsAtPath = questionsAtPath[pathStep];
+                        }
                     }
                 }
-                $scope.currentQuestionPath = validatedPath;
                 $rootScope.pageTitle = $scope.currentQuestionPath[0] || "What would you like to report?";
             }
 
             $scope.currentQuestions = questionsAtPath;
             $scope.visual_state = $scope.isLoggedIn
-              ? (($scope.currentQuestions) ? "chooseAQuestion" : "enterFreeText")
+              ? (isString($scope.currentQuestions) ? "enterFreeText" : "chooseAQuestion")
               : "notLoggedIn";
             $scope.searchIsVisible = ($scope.visual_state == "chooseAQuestion");
             $scope.greySearchBar = $scope.searchIsVisible && $scope.currentQuestionPath && $scope.currentQuestionPath.length;
             location.href = "#"; // scroll to top - $location does not create same effect
         };
-
-        $scope.$watch($scope.holder.searchText, updateQuestionsForPath);
 
         $scope.logIn = function() {
             // TODO login
@@ -231,18 +384,22 @@ angular
         };
 
         $scope.chooseQuestion = function(questionSelection) {
-            var splitQ = decomposePaths(questionSelection);
-            for (var i = 0; i < splitQ.length; i++) {
-                $scope.currentQuestionPath.push(splitQ[i]);
-            }
+            $scope.currentQuestionPath.push(questionSelection);
             $scope.holder.searchText = "";
+            updateQuestionsForPath(questionSelection);
+        };
+
+        $scope.find = function() {
+            $scope.currentQuestionPath = [ $scope.holder.searchText ];
             updateQuestionsForPath();
         };
 
-        $scope.find = updateQuestionsForPath;
-
         $scope.back = function() {
+            $scope.holder.searchText = "";
             $scope.currentQuestionPath.pop();
+            if ($scope.currentQuestionPath.length == 1 && !questions[$scope.currentQuestionPath[0]]) {
+                $scope.holder.searchText = $scope.currentQuestionPath[0];
+            }
             updateQuestionsForPath();
         };
     });
@@ -342,6 +499,9 @@ angular
                 ng-click="chooseQuestion(q)" class="u-color-white button next">
             {{q}}
         </button>
+        <button ng-click="chooseQuestion('Other')" class="u-color-white button next">
+            Other
+        </button>
       </form>
     </div>
 
@@ -354,16 +514,8 @@ angular
                 </a>
                 &nbsp;
             </h4>
-            <h4 ng-repeat="q in currentQuestionPath">
-                <span ng-if="$first">{{q}}</span>
-            </h4>
             <h2>
-                <span ng-repeat="q in currentQuestionPath">
-                    <span ng-if="!$first">
-                        {{q}}
-                        <span ng-if="!$last">&gt;</span>
-                    </span>
-                </span>
+                <span>{{currentQuestions}}</span>
             </h2>
             <h1>Please describe what happened</h1>
         </header>
