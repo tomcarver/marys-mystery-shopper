@@ -33,8 +33,10 @@ main header h1 {
 }
 
 #global-header-bar.searchIsVisible,
-.button {
+.button,
+.button:visited {
     background-color: #199179;
+	text-align:left;
 }
 
 .button:hover,
@@ -114,6 +116,13 @@ input.search-submit {
 button.next {
     text-align: left;
 }
+
+a.question {
+	float: left;
+	clear: left;
+	margin: 1em 0px;
+}
+
 
 h1, h2, h3, h4,
 p, ol, ul, li, label, textarea,
