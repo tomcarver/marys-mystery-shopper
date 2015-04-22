@@ -142,6 +142,14 @@ var additionalSearchTerms = { // 78
   "Your consent was not obtained before a test or an intervention": "",
 };
 
+var colourClasses = {
+  "Complications" : '',
+  "Health care process problems" : 'process',
+  "Interpersonal problems" : 'interpersonal',
+  "Medication-related problems" : 'medication'
+};
+
+
 var questions = {
   "Complications" : {
     "During Operation" : {
@@ -380,6 +388,9 @@ angular
             });
             $rootScope.pageTitle = $scope.currentQuestionPath[0] || "What would you like to report?";
 
+            $scope.colourClasses = $scope.currentQuestionPath.length == 0
+                ? _.values(colourClasses)
+                : [ colourClasses[$scope.currentQuestionPath[0]] ];
             $scope.questionUrls = questionUrls;
             $scope.otherUrl = getSubmitUrl($scope.currentQuestionPath.join(' > ') + " > Other");
             $scope.searchIsVisible = true;
@@ -555,8 +566,8 @@ angular
                 </span>
             </h3>
         </header>
-        <a href="{{url}}" ng-repeat="(q, url) in questionUrls" class="u-color-white button next question">{{q}}</a>
-        <a href="{{otherUrl}}" class="u-color-white button next question">Other</a>
+        <a href="{{url}}" ng-repeat="(q, url) in questionUrls" class="u-color-white button next question {{colourClasses[ $index % (colourClasses.length)]}}">{{q}}</a>
+        <a href="{{otherUrl}}" class="u-color-white button next question other">Other</a>
       </form>
     </div>
 

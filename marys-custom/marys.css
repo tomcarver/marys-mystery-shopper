@@ -22,8 +22,13 @@
     font-style:normal
 }
 
+main header {
+    padding-bottom: 1em;
+}
+
 main header h1 {
     margin-top: 1em;
+    font-size: 31px;
 }
 
 #global-header-bar {
@@ -34,8 +39,8 @@ main header h1 {
 
 .button,
 .button:visited {
-    background-color: #199179;
-	text-align:left;
+    background-color: #199179; /* 168, 83, 57 */
+    text-align:left;
 }
 
 #global-header-bar.searchIsVisible {
@@ -45,8 +50,71 @@ main header h1 {
 
 .button:hover,
 .button:focus {
-    background-color: #157a66;
+    background-color: #157a66; /* 168, 83, 48 */
 }
+
+.button.process {
+    background-color: #1b9dd2;
+}
+
+.button.process:hover,
+.button.process:focus {
+    background-color: #188CBA;
+}
+
+.button.interpersonal {
+    background-color: #9B5DCE;
+}
+
+.button.interpersonal:hover,
+.button.interpersonal:focus {
+    background-color: #8A52B7;
+}
+
+.button.medication {
+    background-color: #4963BE;
+}
+
+.button.medication:hover,
+.button.medication:focus {
+    background-color: #3F56A8;
+}
+
+.button.other {
+    background-color: #9aa;
+}
+
+.button.other:hover,
+.button.other:focus {
+    background-color: #859393;
+}
+
+
+/*
+hex     rgb           hsv           hsl
+199179  25, 145, 121  168, 83, 57   168, 71, 33
+1b9dd2  27, 157, 210  197, 87, 82   197, 77, 47
+9B5DCE  155, 93, 206  273, 55, 81   273, 54, 59
+4963BE  73, 99, 190   227, 62, 75   227, 47, 52
+9aa     153, 170, 170 180, 10, 67   180, 9, 63
+
+
+    background-color: #186F91;  197, 83, 57 
+    background-color: #145D7A;  197, 83, 48 
+
+    background-color: #5B1891;  273, 83, 57 
+    background-color: #4C147A;  273, 83, 48 
+
+    background-color: #183291;  227, 83, 57 
+    background-color: #142A7A;  227, 83, 48 
+
+    background-color: #829191;  180, 10, 57 
+    background-color: #6E7A7A;  180, 10, 48 
+
+*/
+
+
+
 
 #global-header-bar .header-bar {
     background-color: transparent;
@@ -131,6 +199,11 @@ input, input.search-text, .next {
     font-family: 'Open Sans Regular',sans-serif;
 }
 
+.button {
+    font-weight: 700;
+    font-family: 'Open Sans SemiBold',sans-serif;
+}
+
 #global-header .header-proposition #proposition-name,
 #global-header {
     font-weight: 700;
@@ -140,4 +213,7 @@ input, input.search-text, .next {
 a.back-to-previous {
     background: url("icon-caret-left.png") left 0.2em no-repeat;
     cursor: pointer;
+    margin-bottom: 2em;
+    position: static;
+    font-size: 20px;
 }
