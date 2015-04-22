@@ -383,7 +383,6 @@ angular
             $scope.questionUrls = questionUrls;
             $scope.otherUrl = getSubmitUrl($scope.currentQuestionPath.join(' > ') + " > Other");
             $scope.searchIsVisible = true;
-            $scope.greySearchBar = $scope.currentQuestionPath && $scope.currentQuestionPath.length;
         };
 
         var routes = {
@@ -414,7 +413,6 @@ angular
                 $scope.searchResults = questionUrls;
                 $scope.holder.searchText = searchText;
                 $scope.searchIsVisible = true;
-                $scope.greySearchBar = true;
             },
             "questions" : function(routePath) {
                 if (toLoginPageIfLoggedOut())
@@ -489,7 +487,7 @@ angular
     </header>
     <!--end header-->    
 
-    <div id="global-header-bar" ng-class="{ searchIsVisible : searchIsVisible, greySearchBar :  greySearchBar }">
+    <div id="global-header-bar" ng-class="{ searchIsVisible : searchIsVisible }">
       <div class="header-bar">
         <div class="inner-block">
           <div class="header-bar-inner">

@@ -32,20 +32,20 @@ main header h1 {
     max-width:100%;
 }
 
-#global-header-bar.searchIsVisible,
 .button,
 .button:visited {
     background-color: #199179;
 	text-align:left;
 }
 
+#global-header-bar.searchIsVisible {
+    background-color: #F0F0F0;
+    text-align:left;
+}
+
 .button:hover,
 .button:focus {
     background-color: #157a66;
-}
-
-#global-header-bar.greySearchBar {
-    background-color: #F0F0F0;
 }
 
 #global-header-bar .header-bar {
@@ -62,7 +62,7 @@ main header h1 {
 }
 
 .header-bar-inner {
-    background-color: #199179;
+    background-color: #9aa;
     height: 16px;
 }
 
