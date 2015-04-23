@@ -143,7 +143,7 @@ var additionalSearchTerms = { // 78
 };
 
 var colourClasses = {
-  "Complications" : '',
+  "Complications" : 'complications',
   "Health care process problems" : 'process',
   "Interpersonal problems" : 'interpersonal',
   "Medication-related problems" : 'medication'
@@ -379,6 +379,7 @@ angular
                 }
             }
 
+            var isHomePage = $scope.currentQuestionPath.length == 0;
             var questionUrls = {};
 
             $.each(questionsAtPath, function(key, val) {
@@ -389,9 +390,11 @@ angular
             });
             $rootScope.pageTitle = $scope.currentQuestionPath[0] || "What would you like to report?";
 
-            $scope.colourClasses = $scope.currentQuestionPath.length == 0
+            $scope.colourClasses = isHomePage
                 ? _.values(colourClasses)
                 : [ colourClasses[$scope.currentQuestionPath[0]] ];
+
+            $scope.headerClass = isHomePage ? "" : $scope.colourClasses[0];
             $scope.questionUrls = questionUrls;
             $scope.otherUrl = getSubmitUrl($scope.currentQuestionPath.join(' > ') + " > Other");
             $scope.searchIsVisible = true;
@@ -444,6 +447,7 @@ angular
             var route = routes[routePath[0]];
             if (route) {
                 $scope.visual_state = routePath[0];
+                $scope.headerClass = "";
                 route(routePath.slice(1));
             }
             else {
@@ -515,7 +519,7 @@ angular
     <div id="global-header-bar" ng-class="{ searchIsVisible : searchIsVisible }">
       <div class="header-bar">
         <div class="inner-block">
-          <div class="header-bar-inner">
+          <div class="header-bar-inner {{ headerClass }}">
           </div>
         </div>
 

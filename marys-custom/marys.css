@@ -37,8 +37,15 @@ main header h1 {
     max-width:100%;
 }
 
+.header-bar-inner {
+    background-color: #9aa;
+    height: 16px;
+}
+
 .button,
-.button:visited {
+.button:visited,
+.complications,
+.complications:visited {
     background-color: #199179; /* 168, 83, 57 */
     text-align:left;
 }
@@ -49,53 +56,60 @@ main header h1 {
 }
 
 .button:hover,
-.button:focus {
+.button:focus,
+.complications:hover,
+.complications:focus {
     background-color: #157a66; /* 168, 83, 48 */
 }
 
-.button.process {
+.process,
+.process:visited {
     background-color: #1b9dd2;
 }
 
-.button.process:hover,
-.button.process:focus {
+.process:hover,
+.process:focus {
     background-color: #188CBA;
 }
 
-.button.interpersonal {
+.interpersonal,
+.interpersonal:visited {
     background-color: #9B5DCE;
 }
 
-.button.interpersonal:hover,
-.button.interpersonal:focus {
+.interpersonal:hover,
+.interpersonal:focus {
     background-color: #8A52B7;
 }
 
-.button.medication {
+.medication,
+.medication:visited {
     background-color: #4963BE;
 }
 
-.button.medication:hover,
-.button.medication:focus {
+.medication:hover,
+.medication:focus {
     background-color: #3F56A8;
 }
 
-.button.other {
+.other,
+.other:visited {
     background-color: #9aa;
 }
 
-.button.other:hover,
-.button.other:focus {
+.other:hover,
+.other:focus {
     background-color: #859393;
 }
 
-.button.discharge {
+.discharge,
+.discharge:visited {
     background-color: #dee0e2;
     color: #000;
 }
 
-.button.discharge:hover,
-.button.discharge:focus {
+.discharge:hover,
+.discharge:focus {
     background-color: #b6b8ba;
 }
 
@@ -141,10 +155,6 @@ hex     rgb           hsv           hsl
     text-align: right;
 }
 
-.header-bar-inner {
-    background-color: #9aa;
-    height: 16px;
-}
 
 .u-inline-block {
     display: inline-block;
