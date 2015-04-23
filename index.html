@@ -448,6 +448,7 @@ angular
             if (route) {
                 $scope.visual_state = routePath[0];
                 $scope.headerClass = "";
+                $scope.searchIsVisible = false;
                 route(routePath.slice(1));
             }
             else {
