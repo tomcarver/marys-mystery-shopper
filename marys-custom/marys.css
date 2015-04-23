@@ -89,6 +89,18 @@ main header h1 {
     background-color: #859393;
 }
 
+.button.discharge {
+    background-color: #dee0e2;
+    color: #000;
+}
+
+.button.discharge:hover,
+.button.discharge:focus {
+    background-color: #b6b8ba;
+}
+
+
+
 
 /*
 hex     rgb           hsv           hsl
@@ -216,4 +228,11 @@ a.back-to-previous {
     margin-bottom: 2em;
     position: static;
     font-size: 20px;
+}
+
+hr {
+    float: left;
+    clear: left;
+    width: 100%;
+    margin: 2em 0em;
 }

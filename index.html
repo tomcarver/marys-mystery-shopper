@@ -367,6 +367,7 @@ angular
         var showQuestionsForPath = function(path) {
             $scope.currentQuestionPath = [];
             $scope.holder.searchText = "";
+            $scope.promptToConfirmDischarge = false;
 
             var questionsAtPath = questions;
 
@@ -466,6 +467,19 @@ angular
 
         $scope.find = function() {
             navigateTo("search/" + encodeURIComponent($scope.holder.searchText));
+        };
+
+        $scope.discharge = function() {
+            $scope.promptToConfirmDischarge = true;
+        };
+
+        $scope.cancelDischarge = function() {
+            $scope.promptToConfirmDischarge = false;
+        };
+
+        $scope.confirmDischarge = function() {
+            $scope.isLoggedIn = false;
+            navigateTo("");
         };
     });
 </script>
@@ -568,6 +582,18 @@ angular
         </header>
         <a href="{{url}}" ng-repeat="(q, url) in questionUrls" class="u-color-white button next question {{colourClasses[ $index % (colourClasses.length)]}}">{{q}}</a>
         <a href="{{otherUrl}}" class="u-color-white button next question other">Other</a>
+
+        <hr ng-if="currentQuestionPath.length == 0">
+
+        <a href ng-click="discharge()" ng-if="currentQuestionPath.length == 0"
+            class="u-color-white button next question discharge">I've been discharged</a>
+
+        <a href ng-click="confirmDischarge()" ng-if="promptToConfirmDischarge"
+            class="u-color-white button next question discharge">Please click to confirm discharge</a>
+
+        <a href ng-click="cancelDischarge()" ng-if="promptToConfirmDischarge"
+            class="u-color-white button next question discharge">Cancel discharge</a>
+
       </form>
     </div>
 
