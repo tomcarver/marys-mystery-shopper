@@ -438,6 +438,8 @@ angular
                 if (toLoginPageIfLoggedOut())
                     return;
                 $scope.questionText = _.map(routePath, decodeURIComponent).join(' > ');
+            },
+            "thanks" : function(routePath) {
             }
         };
 
@@ -467,7 +469,7 @@ angular
 
         $scope.enterFreeText = function() {
             // TODO save result
-            navigateTo("questions");
+            navigateTo("thanks");
         };
 
         $scope.find = function() {
@@ -627,6 +629,24 @@ angular
         <p class="example">Example: I was given blood that didn't match my blood type - the nurses got mixed up and switched the bloods with someone else on the ward.</p>
 
         <input type="submit" value="Send your feedback" id="continue" class="u-color-white u-inline-block button next" />
+      </form>
+    </div>
+
+    <div ng-switch-when="thanks">
+      <form>
+        <header class="question-one">
+            <h1>Thank you for your feedback.</h1>
+        </header>
+
+        <label for="" class="visuallyhidden">
+            Thank you for your feedback.
+        </label>
+
+        <p>If necessary please inform your doctors or nurses about this event.</p>
+
+        <p>Example: if you are waiting for delayed medication.</p>
+
+        <a href="#/questions" class="u-color-white button next question other">Continue</a>
       </form>
     </div>
   </div>
