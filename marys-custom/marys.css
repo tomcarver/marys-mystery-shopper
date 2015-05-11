@@ -74,17 +74,17 @@ main header h1 {
 
 .interpersonal,
 .interpersonal:visited {
-    background-color: #9B5DCE;
+    background-color: #bf7dbb;
 }
 
 .interpersonal:hover,
 .interpersonal:focus {
-    background-color: #8A52B7;
+    background-color: #8C5B89;
 }
 
 .medication,
 .medication:visited {
-    background-color: #4963BE;
+    background-color: #5566a4;
 }
 
 .medication:hover,
@@ -247,9 +247,23 @@ hr {
     margin: 2em 0em;
 }
 
-.discharge-buttons {
+.question-form {
     margin-bottom: 2em;
+}
+.discharge-buttons {
     float: left;
     clear: left;
     width: 100%;
+}
+
+#footer .footer-wrapper {
+    padding-top: 40px;
+}
+
+#footer .footer-meta {
+    padding-bottom: 30px;
+}
+
+.copyright-link {
+    font-size: 16px;
 }

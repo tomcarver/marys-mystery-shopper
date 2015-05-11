@@ -562,7 +562,7 @@ angular
     </div>
 
     <div ng-switch-when="search">
-      <form>
+      <form class="question-form">
         <a class="back-to-previous" ng-click="back()">
             Back
         </a>
@@ -574,7 +574,7 @@ angular
     </div>
 
     <div ng-switch-when="questions">
-      <form>
+      <form class="question-form">
         <a class="back-to-previous" ng-if="currentQuestionPath.length > 0" ng-click="back()">
             Back
         </a>
@@ -634,7 +634,7 @@ angular
     </div>
 
     <div ng-switch-when="thanks">
-      <form>
+      <form class="question-form">
         <header class="question-one">
             <h1>Thank you for your feedback.</h1>
         </header>
@@ -661,7 +661,7 @@ angular
             <h2 class="visuallyhidden">
               Support links
             </h2>
-            <p>
+            <p class="copyright-link">
                 © copyright
                 <a href="http://sastrugisoftware.com/">
                   Sastrugi Software
