@@ -590,17 +590,18 @@ angular
         <a href="{{url}}" ng-repeat="(q, url) in questionUrls" class="u-color-white button next question {{colourClasses[ $index % (colourClasses.length)]}}">{{q}}</a>
         <a href="{{otherUrl}}" class="u-color-white button next question other">Other</a>
 
-        <hr ng-if="currentQuestionPath.length == 0">
+        <div class="discharge-buttons" ng-if="currentQuestionPath.length == 0">
+            <hr >
 
-        <a href ng-click="discharge()" ng-if="currentQuestionPath.length == 0"
-            class="u-color-white button next question discharge">I've been discharged</a>
+            <a href ng-click="discharge()"
+                class="u-color-white button next question discharge">I've been discharged</a>
 
-        <a href ng-click="confirmDischarge()" ng-if="promptToConfirmDischarge"
-            class="u-color-white button next question discharge">Please click to confirm discharge</a>
+            <a href ng-click="confirmDischarge()" ng-if="promptToConfirmDischarge"
+                class="u-color-white button next question discharge">Please click to confirm discharge</a>
 
-        <a href ng-click="cancelDischarge()" ng-if="promptToConfirmDischarge"
-            class="u-color-white button next question discharge">Cancel discharge</a>
-
+            <a href ng-click="cancelDischarge()" ng-if="promptToConfirmDischarge"
+                class="u-color-white button next question discharge">Cancel discharge</a>
+        </div>
       </form>
     </div>
 
